@@ -121,4 +121,27 @@ function addEvents(){
 };
 
 //call the initialize function when the DOM has loaded
-document.addEventListener('DOMContentLoaded',initialize)
+document.addEventListener('DOMContentLoaded',initialize);
+
+
+// Creates function to fetch geojson file
+function debugAjax(){
+	var myData;
+	
+	fetch("data/MegaCities.geojson")
+		.then(function(response) {
+			debugCallback(response);
+		})
+
+	document.querySelector("#myDiv").insertAdjacentHTML('beforeend', '<br>' + 'GeoJSON data: ' + '</br>' + JSON.stringify(myData))
+};
+
+function debugCallback(response) {
+	// var myData = response;
+	document.querySelector("#myDiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(response));
+};
+
+// document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData))
+
+window.onload = debugAjax();
+
