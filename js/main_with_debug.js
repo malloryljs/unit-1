@@ -124,24 +124,28 @@ function addEvents(){
 document.addEventListener('DOMContentLoaded',initialize);
 
 
-// Creates function to fetch geojson file
+// Defines function debugAjax (similar to jsAjax, just named differently)
 function debugAjax(){
-	var myData;
 	
+	// Retrieves MegaCities.geojson, converts the contents to a usable form, then sends contents to callback function
 	fetch("data/MegaCities.geojson")
-		.then(function(response) {
+	.then(conversion)	
+	.then(function(response) {
 			debugCallback(response);
 		})
 
-	document.querySelector("#myDiv").insertAdjacentHTML('beforeend', '<br>' + 'GeoJSON data: ' + '</br>' + JSON.stringify(myData))
 };
 
+// Defines function conversion to convert contents of geojson to usable format
+function conversion(response) {
+	return response.json();
+};
+
+// Defines debugCallback function to format contents from conversion function
 function debugCallback(response) {
-	// var myData = response;
-	document.querySelector("#myDiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(response));
+	document.querySelector("#myDiv").insertAdjacentHTML('beforeend', '<br>' + 'GeoJSON data: ' + '</br>' + JSON.stringify(response));
 };
 
-// document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData))
-
+// Loads contents of debugAjax when window loads 
 window.onload = debugAjax();
 
